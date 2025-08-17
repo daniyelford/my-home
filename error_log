@@ -1,0 +1,6 @@
+[20-Mar-2025 15:20:12 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
+[20-Mar-2025 15:21:18 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
+[20-Mar-2025 15:23:08 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
+[20-Mar-2025 15:27:17 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
+[20-Mar-2025 15:28:43 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
+[20-Mar-2025 15:30:38 Asia/Tehran] PHP Fatal error:  Allowed memory size of 1073741824 bytes exhausted (tried to allocate 803225600 bytes) in /home/myhomeir/public_html/app/system/core/Exceptions.php on line 272
