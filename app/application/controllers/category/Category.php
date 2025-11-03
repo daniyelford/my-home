@@ -82,10 +82,6 @@ class Category extends MY_Controller
 	        die('ok');
 	    die('0');
     }
-
-
-
-
 	private $category_parent=[];
 	private $category_children='';
     public function show(){

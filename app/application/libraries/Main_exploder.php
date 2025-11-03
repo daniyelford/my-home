@@ -19,7 +19,7 @@ class Main_exploder{
     public $position_id_map=0;
     private $valex_category_child_list=[];
     private $valex_company_map_icon='';
-    private $valex_company_map_url='';
+    public $valex_company_map_url='';
     private $valex_product_map_icon='';
     private $valex_position_map_icon='';
     // products

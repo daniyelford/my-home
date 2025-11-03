@@ -2,8 +2,12 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Wallet extends MY_Controller
 {
+	private PecRequestClass $parsian;
 	public function __construct(){
 		parent::__construct();
+		$this->parsian = new PecRequestClass();
+		$this->parsian->pin = PARSIAN_PIN_CODE;		
+		$this->parsian->callbackUrl = base_url('includes/wallet/pay_parsian_callback');
 	}
 	public function disable_pay(){
 	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
@@ -322,7 +326,7 @@ class Wallet extends MY_Controller
             $inv=rand(10000000000000,100000000000000);
             $date=new JDF();
             $description= "افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من به مبلغ ".intval($b['v']).' تومان درحال انجام است';
-            $pay_body = '{"amount":'.intval($b['v']*10).',"callbackApi":"https://www.my-home.ir/includes/wallet/pay_status",
+            $pay_body = '{"amount":'.intval($b['v']*10).',"callbackApi":"'.base_url('includes/wallet/pay_status').'",
             "invoice":"'.$inv.'","description":"'. $description.'","serviceCode": "8","invoiceDate" :"'. $date->jdate('Y/m/d',time()) .'",
             "mobileNumber" : "'.(!empty($c['0']['phone'])?$c['0']['phone']:'').'","payerMail" : "'.(!empty($c['0']['gmail'])?$c['0']['gmail']:'').'",
             "payerName" : "'.(!empty($c['0']['name'])?$c['0']['name']:'').' '.(!empty($c['0']['family'])?$c['0']['family']:'').'",
@@ -425,5 +429,59 @@ class Wallet extends MY_Controller
         }
     	header('Location:'.base_url('add_wallet_value'));
     	die();
+	}
+	// new terminal
+	public function pay_parsian(){
+		$a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
+	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
+	    !is_null($b) && !empty($b['u']) && !empty($b['t']) && !empty($b['v']) && intval($b['v'])>10000 && !empty($b['w']) && 
+	    intval($b['u'])>0 && intval($_SESSION['id'])===intval($b['u']) && ($c=$this->Users_model->select_info_where_user_id(intval($b['u'])))!==false && !empty($c) && !empty($c['0'])){
+			$amount=intval($b['v']);
+			$orderId = $this->parsian->generateOrderId();
+			$res = $this->parsian->sendSalerequest($orderId,$amount,'',''); 
+			die($res ? '1' : '0');
+		}
+		die('0');
+	}
+	public function pay_parsian_callback(){
+		$res ='';
+		$success = false;
+		if ($_POST) {
+			if (isset($_POST["RRN"])) {
+
+				// دریافت اطلاعات برگشتی
+				$Token = $_POST ["Token"];
+				$status = $_POST ["status"];
+				$OrderId = $_POST ["OrderId"];
+				$TerminalNo = PARSIAN_TERMINAL;
+				$Amount = $_POST ["Amount"];
+				$RRN = $_POST ["RRN"];
+				if($_POST ["TerminalNo"] !== PARSIAN_TERMINAL) return false;
+				if ($RRN > 0 && $status == 0) {
+					// پرداخت با موفقییت انجام شده است
+					
+					// در صورت تایید تراکنش انجام شده توسط کاربر میتواندی از کد زیر استفاده کنید در اینجا ما تراکنش را تایید مینماییم
+						$res = $this->parsian->confirmServices($Token);
+					// درصورت عدم تایید و انجام تراکنش برگشت میتوانید از کد زیر استفاده کنید
+						//$res = $pecRequest->reversalRequest($Token);
+					if ($res == true) {
+						$success = true;
+					}else{
+						$res = $this->parsian->alertMsg();
+					}
+				}elseif($status) {
+					$this->parsian->errorMsg = "کد خطای ارسال شده از طرف بانک $status " . "";
+					$res = $this->parsian->alertMsg();
+				}
+			}else{
+				$this->parsian->errorMsg  = "انجام تراکنش ناموفق بود." ;
+				$res = $this->parsian->alertMsg();
+			}
+		}else {
+			$this->parsian->errorMsg  = "پاسخی از سمت بانک ارسال نشده است. " ;
+			$res = $this->parsian->alertMsg();
+		}
+		return $success;
 	}
 }

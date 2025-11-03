@@ -42,11 +42,25 @@
             </p>
             <input step="1000" type="number" class="w-100 ht-40 rounded-10 border-none text-center" id="money-value" placeholder="جمع کل به تومان">
             <br>
+            <div class="row">
+                <input type="hidden" value = '0' id="type-pay">
+                <div class="col-6 text-center active-pay" onclick="togglePayment(this,0);">
+                    <img src="<?= base_url('assets/img/pasargad.png') ?>" alt="pasargad" class="w-50 rounded-10 toggle-Pay">
+                </div>
+                <div class="col-6 text-center" onclick="togglePayment(this,1);">
+                    <img src="<?= base_url('assets/img/parsian.png') ?>" alt="parsian" class="w-50 rounded-10 toggle-Pay">
+                </div>
+            </div>
             <br>
             <button class="btn btn-success btn-block rounded-10" onclick="addMoney();">افزایش</button>
         </div>
     </div>
     <script>
+        function togglePayment(el,x){
+            $(el).parent().children('div').addClass('active-pay');
+            $(el).removeClass('active-pay');
+            $('#type-pay').val(x);
+        }
         function addmoneyvalue(x){
             let z=0,y=$('#money-value').val();
             if(y!=='' && y!==0 && y!=='0'){
@@ -58,8 +72,14 @@
         }
         function addMoney(){
             let v=$('#money-value').val();
+            let x=$('#type-pay').val();
             if(parseInt(v)<10000000 && parseInt(v)>10000){
-                let siteKey=$('#site-key').val(),data={w:<?= intval($wallet['id']) ?>,u:<?= intval($id) ?>,v:v,t:'افزایش موجودی کیف پول به مبلغ '+v+' تومان'} ,url=baseUrl('includes/wallet/pay');
+                let siteKey=$('#site-key').val(),data={w:<?= intval($wallet['id']) ?>,u:<?= intval($id) ?>,v:v,t:'افزایش موجودی کیف پول به مبلغ '+v+' تومان'} ,url='';
+                if(x==1)
+                    url=baseUrl('includes/wallet/pay_parsian');
+                else 
+                    url=baseUrl('includes/wallet/pay');
+
                 grecaptcha.ready(function() {
                     grecaptcha.execute(siteKey, {action: 'send'}).then(function(token) {
                 		$('#send').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
@@ -67,7 +87,11 @@
                 		    if(result==0){
                 		        return not1();
                 		    }else{
-                		        window.location.replace(result);
+                                if(result==1){
+                                    return not10();
+                                }else{
+                                    window.location.replace(result);
+                                }
                 		    }
                         });
                 	});

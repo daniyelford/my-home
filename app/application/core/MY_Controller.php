@@ -17,6 +17,7 @@ class MY_Controller extends CI_Controller
         $this->load->library('Category_handler');
         $this->load->library('Company_handler');
         $this->load->library('Main_exploder');
+		$this->load->library('PecRequestClass');
         // $this->load->library('Ciqrcode');
         $this->load->model('Category_model');
         $this->load->model('Company_model');
