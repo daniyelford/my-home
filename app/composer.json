@@ -24,11 +24,14 @@
 			"@putenv XDEBUG_MODE=coverage",
 			"phpunit --color=always --coverage-text --configuration tests/travis/sqlite.phpunit.xml"
 		],
+		"fix-vfsstream": [
+			"php -r \"$file = 'vendor/mikey179/vfsstream/src/main/php/org/bovigo/vfs/vfsStream.php'; if (file_exists($file)) { file_put_contents($file, str_replace('name{0}', 'name[0]', file_get_contents($file))); echo '✔ Fixed vfsStream syntax issue.'; }\""
+		],
 		"post-install-cmd": [
-			"sed -i s/name{0}/name[0]/ vendor/mikey179/vfsstream/src/main/php/org/bovigo/vfs/vfsStream.php"
+			"@fix-vfsstream"
 		],
 		"post-update-cmd": [
-			"sed -i s/name{0}/name[0]/ vendor/mikey179/vfsstream/src/main/php/org/bovigo/vfs/vfsStream.php"
+			"@fix-vfsstream"
 		]
 	},
 	"require-dev": {
