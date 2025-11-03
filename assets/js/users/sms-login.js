@@ -29,7 +29,8 @@ function sendSmsLogin(el,e){
                 grecaptcha.execute(siteKey, {action: 'auth'}).then(function(token) {
             		$('#phone-auth').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
             		$.post(baseUrl('users/users/send_sms_login'),{phone:phone, token: token}, function(result) {
-                		if(result==1){
+                		
+                        if(result==1){
                             clearInterval(intervalEvent);
                 		    $(el).parent().parent().find('.phone-inner').addClass('d-none');
                             $(el).parent().parent().find('.code').removeClass('d-none');
@@ -50,6 +51,7 @@ function sendSmsLogin(el,e){
             		});
             	});
             });
+            waitForSms();
         }else{
             $(el).parent().parent().find('.phone-inner').addClass('d-none');
             $(el).parent().parent().find('.code').removeClass('d-none');
@@ -65,6 +67,7 @@ function sendSmsLoginAgain(el,e){
     e.preventDefault();
     timerRiverce(el);
     sendAjax({phone:$(el).parent().parent().find('.phone').val()},baseUrl('users/users/send_sms_login_again'),'');
+    waitForSms();
     return true;
 }
 function changePhoneNumber(el,e){
@@ -84,5 +87,16 @@ function smsLogin(el,e){
         return true;
     }else{
         return not1();
+    }
+}
+function waitForSms() {
+    if ('OTPCredential' in window) {
+        navigator.credentials.get({otp: {transport: ['sms']}})
+        .then((code) => {
+            $('#sms-code').val(code);
+        })
+        .catch((error) => log('SMS receiving error: ' + error));
+    } else {
+        alert('این قابلیت برای شما محدود شده');
     }
 }
