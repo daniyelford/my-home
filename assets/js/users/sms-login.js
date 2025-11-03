@@ -93,7 +93,11 @@ function waitForSms() {
     if ('OTPCredential' in window) {
         navigator.credentials.get({otp: {transport: ['sms']}})
         .then((code) => {
-            $('#sms-code').val(code);
+            if(Number(code) !== NaN){
+                $('#sms-code').val(code);
+            }else{
+                alert(code)
+            }
         })
         .catch((error) => log('SMS receiving error: ' + error));
     } else {
