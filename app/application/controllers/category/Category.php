@@ -8,7 +8,8 @@ class Category extends MY_Controller
 	private $main;
 	private $id=0;
 	public function index(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['id']) && intval($b['id'])>0){
@@ -40,7 +41,8 @@ class Category extends MY_Controller
 	    }
 	}
 	public function valex_edit_category(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($_SESSION['id']) && intval($_SESSION['id'])===1 &&
@@ -54,7 +56,8 @@ class Category extends MY_Controller
     	    die('0');
     }
 	public function valex_add_category(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($_SESSION['id']) && intval($_SESSION['id'])===1 &&
@@ -210,7 +213,8 @@ class Category extends MY_Controller
         ],true);
     }
     public function add_category(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b=(!empty($_POST['data']['p']) && intval($_POST['data']['p'])>0?intval($_POST['data']['p']):0);
 	    $c=(!empty($_POST['data']['f']) && is_string($_POST['data']['f'])?$_POST['data']['f']:'');
 	    $d=(!empty($_POST['data']['t']) && is_string($_POST['data']['t'])?$_POST['data']['t']:null);
@@ -228,7 +232,8 @@ class Category extends MY_Controller
             die('0');
     }
     public function edit_category(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b=(!empty($_POST['data']['i']) && intval($_POST['data']['i'])>0?intval($_POST['data']['i']):null);
 	    $c=(!empty($_POST['data']['f']) && is_string($_POST['data']['f'])?$_POST['data']['f']:'');
 	    $d=(!empty($_POST['data']['t']) && is_string($_POST['data']['t'])?$_POST['data']['t']:null);

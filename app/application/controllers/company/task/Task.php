@@ -7,7 +7,8 @@ class Task extends MY_Controller
 	}
 	public function add(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -91,7 +92,8 @@ class Task extends MY_Controller
 	public function accept_task(){
 	    $i=$l=[];
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -176,7 +178,8 @@ class Task extends MY_Controller
 	}
 	public function reject_task(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -245,7 +248,8 @@ class Task extends MY_Controller
 //  need to send massage
 	public function save_result(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) &&
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -313,7 +317,8 @@ class Task extends MY_Controller
 	}
 	public function do_task(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) &&
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 

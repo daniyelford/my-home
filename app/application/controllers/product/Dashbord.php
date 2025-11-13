@@ -7,7 +7,8 @@ class Dashbord extends MY_Controller
 	}
 	public function pay_product_now(){
 	    $date = new JDF();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['id']) && intval($b['id'])>0 && 

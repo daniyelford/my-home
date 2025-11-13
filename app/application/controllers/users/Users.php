@@ -168,7 +168,8 @@ class Users extends MY_Controller
 	    die('0');
 	}
     public function sms_login(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b=(!empty($_POST['data']['code'])?$_POST['data']['code']:null);
 	    if(!is_null($a) && !is_null($b) && $this->Include_model->chapcha($a) && 
 	    !empty($_SESSION['sms_login_code']) && intval($_SESSION['sms_login_code'])>0 && 
@@ -208,7 +209,8 @@ class Users extends MY_Controller
     //     ],true);
     // }
 //     public function check_auth_costom(){
-// 	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+// 	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 // 	    $b=(!empty($_POST['username'])?$_POST['username']:null);
 // 	    $c=(!empty($_POST['password'])?$_POST['password']:null);
 // 	    if(!is_null($a) && !is_null($b) && !is_null($c) && $this->Include_model->chapcha($a) && ($d=$this->Users_model->auth_costum_and_return_user_id($b,$c))!==false && !empty($d) && intval($d)>0 && ($e=$this->Include_model->ip_handler())!==false && !empty($e) && !empty($e['contry']) && is_string($e['contry']) && !empty($e['city']) && is_string($e['city']) && $this->Users_model->add_login(['user_id'=>intval($d),'country'=>$e['contry'],'city'=>$e['city'],'ip'=>$_SERVER['REMOTE_ADDR'],'login'=>1])){

@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Wallet extends MY_Controller
 {
-	private PecRequestClass $parsian;
+	private $parsian;
 	public function __construct(){
 		parent::__construct();
 		$this->parsian = new PecRequestClass();
@@ -10,7 +10,8 @@ class Wallet extends MY_Controller
 		$this->parsian->callbackUrl = base_url('includes/wallet/pay_parsian_callback');
 	}
 	public function disable_pay(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['payWalletId']) && intval($b['payWalletId'])>0 && !empty($b['payId']) && intval($b['payId'])>0 && 
@@ -21,7 +22,8 @@ class Wallet extends MY_Controller
 
 	}
 	public function enable_pay(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['payWalletId']) && intval($b['payWalletId'])>0 && !empty($b['payId']) && intval($b['payId'])>0 && 
@@ -31,7 +33,8 @@ class Wallet extends MY_Controller
 	    die('0');
 	}
 	public function add_cart_action(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b) && is_array($b) && !empty($b['c']) && (strlen($b['c'])==22||strlen($b['c'])==24) &&
@@ -57,7 +60,8 @@ class Wallet extends MY_Controller
 	    return intval($a)-intval($b);
 	}
 	public function harvest(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b) && is_array($b) && !empty($b['u']) && intval($b['u'])>0 && intval($b['u'])==intval($_SESSION['id']) && 
@@ -317,7 +321,8 @@ class Wallet extends MY_Controller
 	    }
 	}
 	public function pay(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['u']) && !empty($b['t']) && !empty($b['v']) && intval($b['v'])>10000 && !empty($b['w']) && 
@@ -432,7 +437,8 @@ class Wallet extends MY_Controller
 	}
 	// new terminal
 	public function pay_parsian(){
-		$a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+		$a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['u']) && !empty($b['t']) && !empty($b['v']) && intval($b['v'])>10000 && !empty($b['w']) && 

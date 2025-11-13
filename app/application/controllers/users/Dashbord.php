@@ -6,7 +6,8 @@ class Dashbord extends MY_Controller{
 	}
 // 	chat needed
 	public function send_resume(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -22,7 +23,8 @@ class Dashbord extends MY_Controller{
         return (!empty($str) && is_string($str)?strip_tags(str_replace(["/",'~','"',"'",':','#','@','!','|',';','?','<','>','.',',','&','*','`','=','%'],'',$str)):'');
     }
 	public function edit_resume_status(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -33,7 +35,8 @@ class Dashbord extends MY_Controller{
 	    die('0');
 	}
 	public function edit_resume_text(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -44,7 +47,8 @@ class Dashbord extends MY_Controller{
 	    die('0');
 	}
 	public function add_resume(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -243,7 +247,8 @@ class Dashbord extends MY_Controller{
 	    }
 	}
 	public function send_code_phone(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']['phone'])?$_POST['data']['phone']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) &&
@@ -264,7 +269,8 @@ class Dashbord extends MY_Controller{
 	    die('0');
 	}
 	public function send_code_phone_accept(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']['code'])?$_POST['data']['code']:null);
 	    $c = (!empty($_POST['data']['phone'])?$_POST['data']['phone']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
@@ -281,7 +287,8 @@ class Dashbord extends MY_Controller{
     	    die('0');
 	}
 	public function edit_user(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -321,7 +328,8 @@ class Dashbord extends MY_Controller{
 	    die('0');
 	}
 	public function disable_cart_pic(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -337,7 +345,8 @@ class Dashbord extends MY_Controller{
 	    die('0');    
 	}
 	public function disable_cart_code(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -354,7 +363,8 @@ class Dashbord extends MY_Controller{
 	    die('0');    
 	}
 	public function disable(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -363,7 +373,8 @@ class Dashbord extends MY_Controller{
 	    die('0');    
 	}
 	public function enable(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -372,7 +383,8 @@ class Dashbord extends MY_Controller{
 	    die('0');   
 	}
 	public function disable_cart(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -381,7 +393,8 @@ class Dashbord extends MY_Controller{
 	    die('0'); 
 	}
     public function enable_cart(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 

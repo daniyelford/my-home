@@ -49,7 +49,8 @@ class Chat extends MY_Controller
 	}	
 	
 	public function forward(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['text']) && !empty($b['id']) && intval($b['id'])>0 && 
 	    $this->Users_model->add_chat_return_id(['user_sender_id'=>$_SESSION['id'],'user_reciver_id'=>$b['id'],'text'=>$b['text']])) die('ok');
@@ -403,7 +404,8 @@ class Chat extends MY_Controller
 	}
 	
 	public function add(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['type']) && !empty($b['pId']) && intval($b['pId'])>0 && 
@@ -485,7 +487,8 @@ class Chat extends MY_Controller
 	}
 	
 	public function remove(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b["t"]) && !empty($b['i']) && intval($b['i'])>0){

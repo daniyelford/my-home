@@ -81,7 +81,8 @@ class Product extends MY_Controller
 	}
 // 	check live
 	public function add_product_relation(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -129,7 +130,8 @@ class Product extends MY_Controller
         die('0');
 	}
 	public function disable_product_relation(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -161,7 +163,8 @@ class Product extends MY_Controller
     	die('0');
 	}
 	public function enable_product_relation(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -193,7 +196,8 @@ class Product extends MY_Controller
     	die('0');
 	}
 	public function remove_product_relation(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -225,7 +229,8 @@ class Product extends MY_Controller
     	die('0');
 	}
 	public function delete_key(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -240,7 +245,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
 	public function disable_key(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -255,7 +261,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
 	public function enable_key(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -270,7 +277,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
 	public function edit_key(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($b['t']) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -285,7 +293,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
 	public function edit_value(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($b['t']) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -300,7 +309,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
     public function add_key_value(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['pId']) && intval($b['pId'])>0 && !empty($b['key']) && !empty($b['value']) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -316,7 +326,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
 	public function remove_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0  && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -331,7 +342,8 @@ class Product extends MY_Controller
         die('0');
 	}
 	public function add_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['lat']) && !empty($b['lon']) && !empty($b['title']) && !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -354,7 +366,8 @@ class Product extends MY_Controller
         return $randomString;
 	}
 	public function add_video(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['i']) && !empty($b['pId']) && intval($b['pId'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -367,7 +380,8 @@ class Product extends MY_Controller
 	    die('0');
 	}
     public function remove_video(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -383,7 +397,8 @@ class Product extends MY_Controller
         die('0');
     }
     public function add_image(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['i']) && !empty($b['pId']) && intval($b['pId'])>0 &&
@@ -397,7 +412,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function remove_image(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -478,7 +494,8 @@ class Product extends MY_Controller
         return $hex_data.'.png';
     }
 	public function add(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['d']) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -538,7 +555,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function edit(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['d']) && !empty($b['id']) && intval($b['id'])>0 &&
@@ -600,7 +618,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function add_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['tel']) && !empty($b['des']) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -615,7 +634,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function disable_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -631,7 +651,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function enable_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -647,7 +668,8 @@ class Product extends MY_Controller
 	    die('0');
     }
     public function management(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['i']) && intval($b['i'])>0 && 

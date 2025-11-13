@@ -100,7 +100,8 @@ class Dashbord extends MY_Controller
 	    exit();
 	}
 	public function buy_pak(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
         !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -130,7 +131,8 @@ class Dashbord extends MY_Controller
 	}
 	public function pay(){
 	    $date=new JDF();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
         !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 

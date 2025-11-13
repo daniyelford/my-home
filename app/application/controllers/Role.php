@@ -447,7 +447,8 @@ class Role extends MY_Controller
 			$this->err_404();
 	}
 	public function click_action(){
-    	$a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+    	$a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_string($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && !is_null($b) && $this->Include_model->chapcha($a) && ($c=explode(':',$b))!==false&&!empty($c) && !empty($c['0']) && !empty($c['1'])){
     	    $this->click=new Click_actions();

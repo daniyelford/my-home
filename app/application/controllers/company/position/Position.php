@@ -7,7 +7,8 @@ class Position extends MY_Controller
 	}
 	private $id=0;
 	public function edit_form_status(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['position_id']) && intval($_SESSION['position_id'])>0 &&
@@ -17,7 +18,8 @@ class Position extends MY_Controller
 	    die('0');
 	}	
 	public function edit_type_question_form_question(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['position_id']) && intval($_SESSION['position_id'])>0 &&
@@ -28,7 +30,8 @@ class Position extends MY_Controller
 	    die('0');
 	}
 	public function edit_required_form_question(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['position_id']) && intval($_SESSION['position_id'])>0 &&
@@ -38,7 +41,8 @@ class Position extends MY_Controller
 	    die('0');
 	}
 	public function edit_question_form_question(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['position_id']) && intval($_SESSION['position_id'])>0 &&
@@ -49,7 +53,8 @@ class Position extends MY_Controller
 	    die('0');
 	}
 	public function add_form(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b) && !empty($_SESSION['position_id']) && intval($_SESSION['position_id'])>0 && 
@@ -62,7 +67,8 @@ class Position extends MY_Controller
 	    return (!empty($str) && is_string($str) && ($a=str_replace(["/",'`','~','"',"'",':','#','@','!','|',';','?','<','>',',','&','*','=','%'],'',$str))!==false?$a:'');
 	}
 	public function add_position_question_answer(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    $arr=[];
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
@@ -249,7 +255,8 @@ class Position extends MY_Controller
     // chat_creator_pro_pos($pos_user_id,$position_id,$product_id,$text)
     // رزرو محصول قابل ارائه در جایگاه توسط مشتری
     public function reserve_product_in_position(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && !empty($b['productId']) && intval($b['productId'])>0){
 	        if(!(!empty($b['positionId']) && intval($b['positionId'])>0)){
@@ -321,7 +328,8 @@ class Position extends MY_Controller
     }
     // رزرو جایگاه توسط مشتری
     public function reserve_position(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['positionId']) && intval($b['positionId'])>0 &&
@@ -341,7 +349,8 @@ class Position extends MY_Controller
 	// تغییر زمان ورود به جایگاه توسط کارشناس
     public function change_reserve_time(){
         $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) &&
 	    !empty($b['positionUserId']) && intval($b['positionUserId'])>0 &&
@@ -377,7 +386,8 @@ class Position extends MY_Controller
     }
     // تعیین زمان خروج توسط مشتری
     public function access_service_time_position(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['h']) && !empty($b['d']) && !empty($b['m']) && !empty($b['y']) && 
@@ -406,7 +416,8 @@ class Position extends MY_Controller
     }
     // تایید یا تغییر زمان ورود به جایگاه توسط مشتری
     public function access_time_position(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['h']) && !empty($b['d']) && !empty($b['m']) && !empty($b['y']) && 
@@ -426,7 +437,8 @@ class Position extends MY_Controller
     // need to send massage
     // انتخاب محصول از طرف مشتری و ارسال به سبد خرید
     public function reserve_product_in_position_user(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['userPosId']) && intval($b['userPosId'])>0 &&
@@ -447,7 +459,8 @@ class Position extends MY_Controller
     }
     // تغییر تعداد هر محصول سفارش داده شده
 	public function change_count_order(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['oId']) && intval($b['oId'])>0 &&
@@ -489,7 +502,8 @@ class Position extends MY_Controller
     // پرداخت هزینه ی جایگاه توسط مشتری
     public function pay_position_reserve(){
         $r=[];
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['userPosId']) && intval($b['userPosId'])>0 &&
@@ -709,7 +723,8 @@ class Position extends MY_Controller
     // پرداخت هزینه ی محصول توسط مشتری
     public function pay_product_position_order(){
         $r=[];
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['posProOrderId']) && intval($b['posProOrderId'])>0 &&
@@ -958,7 +973,8 @@ class Position extends MY_Controller
     // تایید رسیدن مشتری توسط کارشناس جایگاه
     public function arrived_persent(){
         $r=[];
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -1047,7 +1063,8 @@ class Position extends MY_Controller
     }
     // پایان خدمات رسانی جایگاه توسط کارشناس
     public function end_service(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -1196,7 +1213,8 @@ class Position extends MY_Controller
         return $hex_data.'.png';
     }
     public function all_reserves_info(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['send']) && $b['send']=='ok'){
@@ -1211,7 +1229,8 @@ class Position extends MY_Controller
 	    die('0');
     }
 	public function position_products(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['cId']) && intval($b['cId'])>0 &&
@@ -1262,7 +1281,8 @@ class Position extends MY_Controller
 	    return 0;
 	}
 	public function remove_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -1274,7 +1294,8 @@ class Position extends MY_Controller
         die('0');
 	}
 	public function add_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['lat']) && !empty($b['lon']) && !empty($b['title']) && !empty($b['id']) && intval($b['id'])>0 &&
@@ -1286,7 +1307,8 @@ class Position extends MY_Controller
         die('0');
 	}
 	public function add_video(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['i']) && !empty($b['pId']) && intval($b['pId'])>0 &&
@@ -1301,7 +1323,8 @@ class Position extends MY_Controller
         die('0');
 	}
     public function remove_video(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -1317,7 +1340,8 @@ class Position extends MY_Controller
         die('0');
     }
     public function add_image(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['i']) && !empty($b['pId']) && intval($b['pId'])>0 &&
@@ -1332,7 +1356,8 @@ class Position extends MY_Controller
         die('0');
     }
     public function remove_image(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -1348,7 +1373,8 @@ class Position extends MY_Controller
         die('0');
     }
     public function add(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['d']) && 
@@ -1392,7 +1418,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function edit(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['d']) && 
@@ -1437,7 +1464,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function add_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['tel']) && !empty($b['des']) && 
@@ -1455,7 +1483,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function disable_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -1473,7 +1502,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function enable_tel(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -1537,7 +1567,8 @@ class Position extends MY_Controller
 	    exit();
 	}
     public function management(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['t']) && !empty($b['i']) && intval($b['i'])>0 && 
@@ -1664,7 +1695,8 @@ class Position extends MY_Controller
 	    }
     }
     public function side(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['send']) && $b['send']=='ok'){
@@ -1673,7 +1705,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function disable(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -1681,7 +1714,8 @@ class Position extends MY_Controller
         die('0');
     }
     public function enable(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -1689,7 +1723,8 @@ class Position extends MY_Controller
 	    die('0');
     }
     public function disable_manager(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 
@@ -1697,7 +1732,8 @@ class Position extends MY_Controller
         die('0');
     }
     public function enable_manager(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])==1 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 && 

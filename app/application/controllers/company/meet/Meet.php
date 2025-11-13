@@ -8,7 +8,8 @@ class Meet extends MY_Controller
 	private $id=0;
 	//need to send massage
 	public function add(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($b['t']) && !empty($b['d']) && !empty($b['fromCuId']) && intval($b['fromCuId'])>0 &&
@@ -64,7 +65,8 @@ class Meet extends MY_Controller
 	public function accept_meet(){
 	    $company=new Company_handler();
 	    $date=new JDF();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && !empty($_SESSION['comapy_manager_info']['company_id']) && intval($_SESSION['comapy_manager_info']['company_id'])>0 && !empty($_SESSION['comapy_manager_info']['user_id']) && intval($_SESSION['comapy_manager_info']['user_id'])>0 &&  !empty($_SESSION['id']) && intval($_SESSION['id'])>0 &&  intval($_SESSION['comapy_manager_info']['user_id'])==intval($_SESSION['id']) && 
 	    $this->Company_model->edit_meet_user_weher_company_meet_id(['status'=>1],intval($b['id']))){
@@ -105,7 +107,8 @@ class Meet extends MY_Controller
 	}
 	public function accept_meet_exp(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['id']) && intval($b['id'])>0 && 
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && 
@@ -150,7 +153,8 @@ class Meet extends MY_Controller
 	}
 	public function accept_meet_exp_single(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && !empty($_SESSION['comapy_manager_info']['company_id']) && intval($_SESSION['comapy_manager_info']['company_id'])>0 && !empty($_SESSION['comapy_manager_info']['user_id']) && intval($_SESSION['comapy_manager_info']['user_id'])>0 &&  !empty($_SESSION['id']) && intval($_SESSION['id'])>0 &&  intval($_SESSION['comapy_manager_info']['user_id'])==intval($_SESSION['id']) && 
 	    $this->Company_model->edit_meet_user_weher_id(['status'=>1],intval($b['id']))){
@@ -191,7 +195,8 @@ class Meet extends MY_Controller
 	}
 	public function accept_meet_time(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['id']) && intval($b['id'])>0 && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && !empty($_SESSION['comapy_manager_info']['company_user_id']) && intval($_SESSION['comapy_manager_info']['company_user_id'])>0 && !empty($_SESSION['comapy_manager_info']['user_id']) && intval($_SESSION['comapy_manager_info']['user_id'])>0 && !empty($_SESSION['id']) && intval($_SESSION['id'])>0 && intval($_SESSION['comapy_manager_info']['user_id'])==intval($_SESSION['id']) && 
 	    $this->Company_model->edit_meet_user_weher_id(['status'=>2],intval($b['id']))){
@@ -232,7 +237,8 @@ class Meet extends MY_Controller
 	}
 	public function change_time_meet(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && 
 	    !empty($b['mUId']) && intval($b['mUId'])>0 &&!empty($_SESSION['comapy_manager_info']) && 
@@ -282,7 +288,8 @@ class Meet extends MY_Controller
 	}
 	public function change_time_meet_manager(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['mUId']) && intval($b['mUId'])>0 &&
 	    !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) &&
@@ -329,7 +336,8 @@ class Meet extends MY_Controller
 	}
 	public function save_result(){
 	    $company=new Company_handler();
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && !is_null($b) && !empty($b['i']) && intval($b['i'])>0 && !empty($b['t']) && !empty(trim($b['t'])) && !empty($_SESSION['comapy_manager_info']) && is_array($_SESSION['comapy_manager_info']) && !empty($_SESSION['comapy_manager_info']['user_id']) && intval($_SESSION['comapy_manager_info']['user_id'])>0 &&!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && intval($_SESSION['comapy_manager_info']['user_id'])==intval($_SESSION['id']) && 
 	    $this->Company_model->edit_meet_weher_id(['result'=>trim($b['t']),'status'=>1],intval($b['i']))){

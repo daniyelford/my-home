@@ -44,10 +44,10 @@
             <br>
             <div class="row">
                 <input type="hidden" value = '0' id="type-pay">
-                <div class="col-6 text-center active-pay" onclick="togglePayment(this,0);">
+                <div class="col-6 text-center border" onclick="togglePayment(this,0);">
                     <img src="<?= base_url('assets/img/pasargad.png') ?>" alt="pasargad" class="w-50 rounded-10 toggle-Pay">
                 </div>
-                <div class="col-6 text-center" onclick="togglePayment(this,1);">
+                <div class="col-6 text-center border" onclick="togglePayment(this,1);">
                     <img src="<?= base_url('assets/img/parsian.png') ?>" alt="parsian" class="w-50 rounded-10 toggle-Pay">
                 </div>
             </div>
@@ -57,8 +57,8 @@
     </div>
     <script>
         function togglePayment(el,x){
-            $(el).parent().children('div').addClass('active-pay');
-            $(el).removeClass('active-pay');
+            $(el).parent().children().removeClass('active-pay');
+            $(el).addClass('active-pay');
             $('#type-pay').val(x);
         }
         function addmoneyvalue(x){

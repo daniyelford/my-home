@@ -6,7 +6,8 @@ class Company extends MY_Controller
 		parent::__construct();
 	}
 	public function denied_user_resume_company_request(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -22,7 +23,8 @@ class Company extends MY_Controller
 	    die('0');
 	}
 	public function accept_user_resume_company_request(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -154,7 +156,8 @@ class Company extends MY_Controller
         }
 	}
 	public function edit_company_role_request_status(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -165,7 +168,8 @@ class Company extends MY_Controller
 	    die('0');
 	}
 	public function edit_company_role_request_text(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && is_array($b) && 
@@ -176,7 +180,8 @@ class Company extends MY_Controller
 	    die('0');
 	}
 	public function add_role_request(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) &&
 	    !empty($b['role_id']) && intval($b['role_id'])>0 && !empty($b['text']) && !empty($_SESSION['company_manager_data']['company_info']) &&
@@ -188,7 +193,8 @@ class Company extends MY_Controller
 	    die('0');
 	}
     public function accept_work(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['i']) && intval($b['i'])>0 && 
@@ -240,7 +246,8 @@ class Company extends MY_Controller
     	die('0');
 	}
 	public function add_user(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['companyId']) && intval($b['companyId'])>0 &&
@@ -295,7 +302,8 @@ class Company extends MY_Controller
 	    die();
 	}
 	public function add(){
-        $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+        $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['user']) && intval($b['user'])>0 && intval($b['user'])==intval($_SESSION['id']) &&
@@ -333,7 +341,8 @@ class Company extends MY_Controller
 	    return (!empty($str) && is_string($str)?str_replace('--',' ',$str):'');
 	}
 	public function expier_user(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['cuId']) && intval($b['cuId'])>0){
@@ -342,7 +351,8 @@ class Company extends MY_Controller
 	    die();
 	}
 	public function edit_user(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && 
@@ -364,7 +374,8 @@ class Company extends MY_Controller
 	    die();
 	}
 	public function show_profile_id(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if( !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && 
@@ -447,7 +458,8 @@ class Company extends MY_Controller
         return $hex_data.'.png';
     }
 	public function remove_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['id']) && intval($b['id'])>0 &&
@@ -459,7 +471,8 @@ class Company extends MY_Controller
         die('0');
 	}
 	public function add_map(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !empty($b['lat']) && !empty($b['lon']) && !empty($b['title']) && !empty($b['id']) && intval($b['id'])>0 &&
@@ -471,7 +484,8 @@ class Company extends MY_Controller
         die('0');
 	}
 	public function check_company_access(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['ccppId']) && intval($b['ccppId'])>0 && !empty($b['cuId']) && intval($b['cuId'])>0){
@@ -553,7 +567,8 @@ class Company extends MY_Controller
         exit();
 	}
 	public function user_company_manager(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && ($_SESSION['company_user_one']=['user_info_image'=>(!empty($b["userImg"])?$b["userImg"]:''),'company_id'=>(!empty($b["companyId"])?$b["companyId"]:0),'user_id'=>(!empty($b["userId"])?$b["userId"]:0),'company_role_id'=>(!empty($b["companyRoleId"])?$b["companyRoleId"]:0),'company_user_id'=>(!empty($b["companyUserId"])?$b["companyUserId"]:0),'user_info_name'=>(!empty($b["userInfoName"])?$b["userInfoName"]:''),'user_role_info'=>(!empty($b["userRoleTitle"])?$b["userRoleTitle"]:'')])!==false)
@@ -628,7 +643,8 @@ class Company extends MY_Controller
         return (!empty($str) && is_string($str)?str_replace(' ','--',$str):'');
     }
     public function edit(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && ($b['t']=$this->securite_value($b['t']))!==false && ($b['d']=$this->securite_value($b['d']))!==false && 
@@ -708,7 +724,8 @@ class Company extends MY_Controller
         }
 	}
 	public function choose_one(){
-	    $a = (!empty($_POST['token']) ? trim(filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING)) : null);
+	    $a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
+
     	$b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
     	if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && !is_null($b))
             if(!empty($b['rid']) && intval($b['rid'])>0 && !empty($b['cid']) && intval($b['cid'])>0 &&
