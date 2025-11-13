@@ -23,6 +23,8 @@
  * @category	Loader
  * @link		http://codeigniter.com/user_guide/libraries/loader.html
  */
+// // // // #[\AllowDynamicProperties]
+
 #[\AllowDynamicProperties]
 class MY_Loader extends CI_Loader
 {
