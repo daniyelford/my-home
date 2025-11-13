@@ -438,56 +438,117 @@ class Wallet extends MY_Controller
 	// new terminal
 	public function pay_parsian(){
 		$a = (!empty($_POST['token']) ? trim(strip_tags(filter_input(INPUT_POST, 'token'))) : null);
-
 	    $b = (!empty($_POST['data']) && is_array($_POST['data'])?$_POST['data']:null);
 	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && !is_null($a) && $this->Include_model->chapcha($a) && 
 	    !is_null($b) && !empty($b['u']) && !empty($b['t']) && !empty($b['v']) && intval($b['v'])>10000 && !empty($b['w']) && 
 	    intval($b['u'])>0 && intval($_SESSION['id'])===intval($b['u']) && ($c=$this->Users_model->select_info_where_user_id(intval($b['u'])))!==false && !empty($c) && !empty($c['0'])){
-			$amount=intval($b['v']);
+			$_SESSION['money_value_for_add']=intval($b['v']);
+			$amount=intval($b['v'])*10;
 			$orderId = $this->parsian->generateOrderId();
-			$res = $this->parsian->sendSalerequest($orderId,$amount,'',''); 
-			die($res ? '1' : '0');
+			$res = $this->parsian->sendSalerequest($orderId,$amount,'','');
+			if(!empty($res)) die($res);
+			die('1');
 		}
 		die('0');
 	}
 	public function pay_parsian_callback(){
-		$res ='';
-		$success = false;
-		if ($_POST) {
-			if (isset($_POST["RRN"])) {
-
-				// دریافت اطلاعات برگشتی
-				$Token = $_POST ["Token"];
-				$status = $_POST ["status"];
-				$OrderId = $_POST ["OrderId"];
-				$TerminalNo = PARSIAN_TERMINAL;
-				$Amount = $_POST ["Amount"];
-				$RRN = $_POST ["RRN"];
-				if($_POST ["TerminalNo"] !== PARSIAN_TERMINAL) return false;
-				if ($RRN > 0 && $status == 0) {
-					// پرداخت با موفقییت انجام شده است
-					
-					// در صورت تایید تراکنش انجام شده توسط کاربر میتواندی از کد زیر استفاده کنید در اینجا ما تراکنش را تایید مینماییم
-						$res = $this->parsian->confirmServices($Token);
-					// درصورت عدم تایید و انجام تراکنش برگشت میتوانید از کد زیر استفاده کنید
-						//$res = $pecRequest->reversalRequest($Token);
-					if ($res == true) {
-						$success = true;
-					}else{
-						$res = $this->parsian->alertMsg();
-					}
-				}elseif($status) {
-					$this->parsian->errorMsg = "کد خطای ارسال شده از طرف بانک $status " . "";
-					$res = $this->parsian->alertMsg();
-				}
-			}else{
-				$this->parsian->errorMsg  = "انجام تراکنش ناموفق بود." ;
-				$res = $this->parsian->alertMsg();
-			}
-		}else {
-			$this->parsian->errorMsg  = "پاسخی از سمت بانک ارسال نشده است. " ;
-			$res = $this->parsian->alertMsg();
-		}
-		return $success;
+	    $done=false;
+	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && 
+	    ($z=$this->Users_model->select_info_where_user_id(intval($_SESSION['id'])))!==false && !empty($z) && !empty($z['0']) &&
+	    !empty($_SESSION['money_value_for_add']) && intval($_SESSION['money_value_for_add'])>0){
+    	    if(!empty($_POST) && !empty($_POST["RRN"]) && intval($_POST["RRN"])>0 && !empty($_POST["Token"]) && 
+    	    isset($_POST["status"]) && $_POST["status"] == 0 &&
+    	    ($this->parsian->rrn = intval($_POST["RRN"]))!==false &&
+            ($res = $this->parsian->confirmServices($_POST["Token"]))!==false && $res){
+                $a=$this->Order_model->select_wallet_where_user_id(intval($_SESSION['id']));
+                if(!empty($a) && !empty(end($a))){
+                    end($a)['value']=(!empty(end($a)['value']) && intval(end($a)['value'])>0?end($a)['value']:0);
+                    $new_value=intval(end($a)['value']+$_SESSION['money_value_for_add']);
+                    $b=$this->Order_model->add_payment_return_id([
+                        'user_id_seller'=>intval($_SESSION['id']),
+                        'pay_value'=>$_SESSION['money_value_for_add'],
+                        'factor_api_token'=>intval($_POST["RRN"]),
+                        'status'=>1
+                    ]);
+                    $c=$this->Order_model->add_wallet_return_id([
+                        'user_id'=>intval($_SESSION['id']),
+                        'old_value'=>intval(end($a)['value']),
+                        'change_value'=>$_SESSION['money_value_for_add'],
+                        'value'=>intval($new_value)
+                    ]);
+                    if(!empty($b) && intval($b)>0 && !empty($c) && intval($c)>0 && $this->Order_model->add_wallet_payemt([
+                        'wallet_id'=>intval($c),
+                	    'payment_id'=>intval($b),
+                        'cart_id'=>0,
+                	    'self_wallet_action'=>1,
+                        'cart_action_status'=>'',
+                    	'position_product_order'=>0,
+                        'package_company_order'=>0,
+                    ])){
+                        $_SESSION['my_wallet']=[
+                            'id'=>intval($c),
+                            'user_id'=>intval($_SESSION['id']),
+                            'old_value'=>intval(end($a)['value']),
+                            'change_value'=>$_SESSION['money_value_for_add'],
+                            'value'=>intval($new_value)
+                        ];
+                        $text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان انجام شد موجودی جدید:'.number_format($new_value).' تومان';
+                        $send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+                        (!empty($z['0']['phone'])?$z['0']['phone']:''),
+                        (!empty($z['0']['gmail'])?$z['0']['gmail']:''),
+                        'includes/email_includes/pay_status',
+                        'افزایش اعتبار',
+                        $text);
+                        $p=$this->Users_model->select_info_where_user_id(1);
+                        $q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+                        (!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
+                        'includes/email_includes/pay_status',
+                        'افزایش اعتبار',
+                        $text);
+                        $_SESSION['money_value_for_add']='';
+                        header('Location:'.base_url('wallet'));
+                        die();
+                    }
+                }
+    	    }
+    	    $text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان ناموفق بوده در صورت کسر وجه تا 48 ساعت آینده مبلغ به حسابتان بازخواهد گشت';
+            $send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+            (!empty($z['0']['phone'])?$z['0']['phone']:''),
+            (!empty($z['0']['gmail'])?$z['0']['gmail']:''),
+            'includes/email_includes/pay_status',
+            'افزایش اعتبار ناموفق',
+            $text);
+            $p=$this->Users_model->select_info_where_user_id(1);
+            $q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+            (!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
+            'includes/email_includes/pay_status',
+            'افزایش اعتبار ناموفق',
+            $text);
+    	}
+    // 	var_dump($_SESSION['id']);
+        // echo $this->load->view('includes/wallet_add_value_result',['done'=>$done],true);
+        // echo $this->load->view('header',[
+        //         'has_auth_info_error'=>$has_auth_info_error,
+		// 	    'category'=>$category->valex_show(),
+		// 	    'lang'=>'',
+		// 	    'id'=>intval($_SESSION['id']),
+		// 	    'user_info'=>(!empty($_SESSION['user_info'])?$_SESSION['user_info']:[]),
+		// 	    'lat'=>(!empty($_SESSION['lt'])?$_SESSION['lt']:''),
+		// 	    'lon'=>(!empty($_SESSION['ln'])?$_SESSION['ln']:''),
+		// 	    'title'=>'افزودن وجه',
+		// 	    'icon'=>'',
+		//     ],true).
+		// 	$this->load->view('includes/wallet_add_value',[
+		// 	    'wallet'=>$_SESSION['my_wallet'],
+        //         'id'=>intval($_SESSION['id'])
+        //     ],true).
+    	// 	$this->load->view('footer',[
+    	// 	    'my_company'=>(!empty($_SESSION['my_company'])?$_SESSION['my_company']:[]),
+        //         'lang'=>'fa',
+    	// 	    'change_lang'=>'true',
+		// 	    'id'=>intval($_SESSION['id'])
+    	// 	],true);
+    	header('Location:'.base_url('add_wallet_value'));
+    	die();
 	}
-}
+} 

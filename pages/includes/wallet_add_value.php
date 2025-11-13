@@ -1,4 +1,9 @@
 <?php if(!empty($wallet) && !empty($wallet['id']) && intval($wallet['id'])>0 && !empty($id) && intval($id)>0){ ?>
+    <style>
+        .active-pay{
+            border:5px solid green;
+        }
+    </style>
     <div class="row mt-3">
         <div class="col-12">
             <h4>
@@ -42,13 +47,13 @@
             </p>
             <input step="1000" type="number" class="w-100 ht-40 rounded-10 border-none text-center" id="money-value" placeholder="جمع کل به تومان">
             <br>
-            <div class="row">
+            <div class="row mt-3" style="justify-content: space-evenly;">
                 <input type="hidden" value = '0' id="type-pay">
-                <div class="col-6 text-center border" onclick="togglePayment(this,0);">
-                    <img src="<?= base_url('assets/img/pasargad.png') ?>" alt="pasargad" class="w-50 rounded-10 toggle-Pay">
+                <div class="bg-white rounded-10 col-5 text-center active-pay" onclick="togglePayment(this,0);">
+                    <img src="<?= base_url('assets/img/pasargad.png') ?>" alt="pasargad" class="w-50">
                 </div>
-                <div class="col-6 text-center border" onclick="togglePayment(this,1);">
-                    <img src="<?= base_url('assets/img/parsian.png') ?>" alt="parsian" class="w-50 rounded-10 toggle-Pay">
+                <div class="bg-white rounded-10 col-5 text-center" onclick="togglePayment(this,1);">
+                    <img src="<?= base_url('assets/img/parsian.png') ?>" alt="parsian" class="w-50">
                 </div>
             </div>
             <br>
@@ -88,7 +93,7 @@
                 		        return not1();
                 		    }else{
                                 if(result==1){
-                                    return not10();
+                                    return not44();
                                 }else{
                                     window.location.replace(result);
                                 }
