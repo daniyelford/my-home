@@ -411,8 +411,7 @@ class Wallet extends MY_Controller
                                 'افزایش اعتبار',
                                 $text);
                                 $_SESSION['pay_inv']=$_SESSION['pay_url_id']=$_SESSION['money_value_for_add']='';
-                                header('Location:'.base_url('wallet'));
-                            	die();
+								return $this->show_payment_result(['done'=>false]);                                
                             }
                         }
             	    }
@@ -431,8 +430,9 @@ class Wallet extends MY_Controller
             'includes/email_includes/pay_status',
             'افزایش اعتبار ناموفق',
             $text);
+			return $this->show_payment_result(['done'=>false]);
         }
-    	header('Location:'.base_url('add_wallet_value'));
+    	header('Location:'.base_url());
     	die();
 	}
 	// new terminal
@@ -452,103 +452,106 @@ class Wallet extends MY_Controller
 		die('0');
 	}
 	public function pay_parsian_callback(){
-	    $done=false;
-	    if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && 
+		if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && 
 	    ($z=$this->Users_model->select_info_where_user_id(intval($_SESSION['id'])))!==false && !empty($z) && !empty($z['0']) &&
-	    !empty($_SESSION['money_value_for_add']) && intval($_SESSION['money_value_for_add'])>0){
-    	    if(!empty($_POST) && !empty($_POST["RRN"]) && intval($_POST["RRN"])>0 && !empty($_POST["Token"]) && 
-    	    isset($_POST["status"]) && $_POST["status"] == 0 &&
-    	    ($this->parsian->rrn = intval($_POST["RRN"]))!==false &&
-            ($res = $this->parsian->confirmServices($_POST["Token"]))!==false && $res){
-                $a=$this->Order_model->select_wallet_where_user_id(intval($_SESSION['id']));
-                if(!empty($a) && !empty(end($a))){
-                    end($a)['value']=(!empty(end($a)['value']) && intval(end($a)['value'])>0?end($a)['value']:0);
-                    $new_value=intval(end($a)['value']+$_SESSION['money_value_for_add']);
-                    $b=$this->Order_model->add_payment_return_id([
-                        'user_id_seller'=>intval($_SESSION['id']),
-                        'pay_value'=>$_SESSION['money_value_for_add'],
-                        'factor_api_token'=>intval($_POST["RRN"]),
-                        'status'=>1
-                    ]);
-                    $c=$this->Order_model->add_wallet_return_id([
-                        'user_id'=>intval($_SESSION['id']),
-                        'old_value'=>intval(end($a)['value']),
-                        'change_value'=>$_SESSION['money_value_for_add'],
-                        'value'=>intval($new_value)
-                    ]);
-                    if(!empty($b) && intval($b)>0 && !empty($c) && intval($c)>0 && $this->Order_model->add_wallet_payemt([
-                        'wallet_id'=>intval($c),
-                	    'payment_id'=>intval($b),
-                        'cart_id'=>0,
-                	    'self_wallet_action'=>1,
-                        'cart_action_status'=>'',
-                    	'position_product_order'=>0,
-                        'package_company_order'=>0,
-                    ])){
-                        $_SESSION['my_wallet']=[
-                            'id'=>intval($c),
-                            'user_id'=>intval($_SESSION['id']),
-                            'old_value'=>intval(end($a)['value']),
-                            'change_value'=>$_SESSION['money_value_for_add'],
-                            'value'=>intval($new_value)
-                        ];
-                        $text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان انجام شد موجودی جدید:'.number_format($new_value).' تومان';
-                        $send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
-                        (!empty($z['0']['phone'])?$z['0']['phone']:''),
-                        (!empty($z['0']['gmail'])?$z['0']['gmail']:''),
-                        'includes/email_includes/pay_status',
-                        'افزایش اعتبار',
-                        $text);
-                        $p=$this->Users_model->select_info_where_user_id(1);
-                        $q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
-                        (!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
-                        'includes/email_includes/pay_status',
-                        'افزایش اعتبار',
-                        $text);
-                        $_SESSION['money_value_for_add']='';
-                        header('Location:'.base_url('wallet'));
-                        die();
-                    }
-                }
-    	    }
-    	    $text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان ناموفق بوده در صورت کسر وجه تا 48 ساعت آینده مبلغ به حسابتان بازخواهد گشت';
-            $send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
-            (!empty($z['0']['phone'])?$z['0']['phone']:''),
-            (!empty($z['0']['gmail'])?$z['0']['gmail']:''),
-            'includes/email_includes/pay_status',
-            'افزایش اعتبار ناموفق',
-            $text);
-            $p=$this->Users_model->select_info_where_user_id(1);
-            $q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
-            (!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
-            'includes/email_includes/pay_status',
-            'افزایش اعتبار ناموفق',
-            $text);
-    	}
-    // 	var_dump($_SESSION['id']);
-        // echo $this->load->view('includes/wallet_add_value_result',['done'=>$done],true);
-        // echo $this->load->view('header',[
-        //         'has_auth_info_error'=>$has_auth_info_error,
-		// 	    'category'=>$category->valex_show(),
-		// 	    'lang'=>'',
-		// 	    'id'=>intval($_SESSION['id']),
-		// 	    'user_info'=>(!empty($_SESSION['user_info'])?$_SESSION['user_info']:[]),
-		// 	    'lat'=>(!empty($_SESSION['lt'])?$_SESSION['lt']:''),
-		// 	    'lon'=>(!empty($_SESSION['ln'])?$_SESSION['ln']:''),
-		// 	    'title'=>'افزودن وجه',
-		// 	    'icon'=>'',
-		//     ],true).
-		// 	$this->load->view('includes/wallet_add_value',[
-		// 	    'wallet'=>$_SESSION['my_wallet'],
-        //         'id'=>intval($_SESSION['id'])
-        //     ],true).
-    	// 	$this->load->view('footer',[
-    	// 	    'my_company'=>(!empty($_SESSION['my_company'])?$_SESSION['my_company']:[]),
-        //         'lang'=>'fa',
-    	// 	    'change_lang'=>'true',
-		// 	    'id'=>intval($_SESSION['id'])
-    	// 	],true);
-    	header('Location:'.base_url('add_wallet_value'));
-    	die();
+		!empty($_SESSION['money_value_for_add']) && intval($_SESSION['money_value_for_add'])>0){
+			if(!empty($_POST) && !empty($_POST["RRN"]) && intval($_POST["RRN"])>0 && !empty($_POST["Token"]) && 
+			isset($_POST["status"]) && $_POST["status"] == 0 &&
+			($this->parsian->rrn = intval($_POST["RRN"]))!==false &&
+			($res = $this->parsian->confirmServices($_POST["Token"]))!==false && $res){
+				$a=$this->Order_model->select_wallet_where_user_id(intval($_SESSION['id']));
+				if(!empty($a) && !empty(end($a))){
+					end($a)['value']=(!empty(end($a)['value']) && intval(end($a)['value'])>0?end($a)['value']:0);
+					$new_value=intval(end($a)['value']+$_SESSION['money_value_for_add']);
+					$b=$this->Order_model->add_payment_return_id([
+						'user_id_seller'=>intval($_SESSION['id']),
+						'pay_value'=>$_SESSION['money_value_for_add'],
+						'factor_api_token'=>intval($_POST["RRN"]),
+						'status'=>1
+					]);
+					$c=$this->Order_model->add_wallet_return_id([
+						'user_id'=>intval($_SESSION['id']),
+						'old_value'=>intval(end($a)['value']),
+						'change_value'=>$_SESSION['money_value_for_add'],
+						'value'=>intval($new_value)
+					]);
+					if(!empty($b) && intval($b)>0 && !empty($c) && intval($c)>0 && $this->Order_model->add_wallet_payemt([
+						'wallet_id'=>intval($c),
+						'payment_id'=>intval($b),
+						'cart_id'=>0,
+						'self_wallet_action'=>1,
+						'cart_action_status'=>'',
+						'position_product_order'=>0,
+						'package_company_order'=>0,
+					])){
+						$_SESSION['my_wallet']=[
+							'id'=>intval($c),
+							'user_id'=>intval($_SESSION['id']),
+							'old_value'=>intval(end($a)['value']),
+							'change_value'=>$_SESSION['money_value_for_add'],
+							'value'=>intval($new_value)
+						];
+						$text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان انجام شد موجودی جدید:'.number_format($new_value).' تومان';
+						$send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+						(!empty($z['0']['phone'])?$z['0']['phone']:''),
+						(!empty($z['0']['gmail'])?$z['0']['gmail']:''),
+						'includes/email_includes/pay_status',
+						'افزایش اعتبار',
+						$text);
+						$p=$this->Users_model->select_info_where_user_id(1);
+						$q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+						(!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
+						'includes/email_includes/pay_status',
+						'افزایش اعتبار',
+						$text);
+						$_SESSION['money_value_for_add']='';
+						return $this->show_payment_result(['done'=>true]);
+					}
+				}
+			}
+			$text="افزایش مبلغ کیف پول اینترنتی واقع در سایت کسب و کار خانه ی من https://www.my-home.ir/ به مبلغ ".intval($_SESSION['money_value_for_add']).' تومان ناموفق بوده در صورت کسر وجه تا 48 ساعت آینده مبلغ به حسابتان بازخواهد گشت';
+			$send=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+			(!empty($z['0']['phone'])?$z['0']['phone']:''),
+			(!empty($z['0']['gmail'])?$z['0']['gmail']:''),
+			'includes/email_includes/pay_status',
+			'افزایش اعتبار ناموفق',
+			$text);
+			$p=$this->Users_model->select_info_where_user_id(1);
+			$q=$this->Include_model->send_massage_to_user(['user'=>$z['0'],'type'=>'success','value'=>$_SESSION['money_value_for_add']],
+			(!empty($p['0']['phone'])?$p['0']['phone']:''),(!empty($p['0']['gmail'])?$p['0']['gmail']:''),
+			'includes/email_includes/pay_status',
+			'افزایش اعتبار ناموفق',
+			$text);
+			return $this->show_payment_result(['done'=>false]);
+		}
+		header('Location:'.base_url());
+		die();
+	}
+	private function show_payment_result($data){
+		$category=new Category_handler();
+		if(!empty($_SESSION['id']) && intval($_SESSION['id'])>0 && 
+	    ($z=$this->Users_model->select_info_where_user_id(intval($_SESSION['id'])))!==false && !empty($z) && !empty($z['0'])){
+			echo $this->load->view('header',[
+				'has_auth_info_error'=>(!empty($z['0']['cart_mely_picture']) && !empty($z['0']['mely_code'])?false:true),
+				'category'=>$category->valex_show(),
+				'lang'=>'',
+				'user_info'=>(!empty($_SESSION['user_info'])?$_SESSION['user_info']:[]),
+				'lat'=>(!empty($_SESSION['lt'])?$_SESSION['lt']:''),
+				'lon'=>(!empty($_SESSION['ln'])?$_SESSION['ln']:''),
+				'title'=>'افزودن وجه',
+				'id'=>intval($_SESSION['id']),
+				'icon'=>'',
+				],true).
+			$this->load->view('includes/wallet_add_value_result',$data,true).
+			$this->load->view('footer',[
+				'my_company'=>(!empty($_SESSION['my_company'])?$_SESSION['my_company']:[]),
+				'lang'=>'fa',
+				'change_lang'=>'true',
+				'id'=>intval($_SESSION['id'])
+			],true);		
+		}else{
+			header('Location:'.base_url());
+		}
+		die();
 	}
 } 
