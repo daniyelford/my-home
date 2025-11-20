@@ -16,7 +16,8 @@ class Chat extends MY_Controller
                 header('Location:'.base_url('chat?type=users&count='.$id));die();
             }else{
                 $_SESSION['visit']=$id;
-                echo $this->load->view('errors/500',['text'=>'ابتدا وارد حساب کاربری خود شوید یا یکی بسازید'],true);
+				echo $this->load->view('errors/500',['text'=>$this->load->view('errors/500G',[],true)], true);
+                // echo $this->load->view('errors/500',['text'=>'ابتدا وارد حساب کاربری خود شوید یا یکی بسازید'],true);
             }
         }else{
             header('Location:'.base_url());
