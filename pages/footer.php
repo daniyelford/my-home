@@ -13,6 +13,15 @@
         }else{ 
             $this->view('footer_includes/add_user');
             $this->view('footer_includes/login');
+            if(!empty($_SESSION['visit']) && intval($_SESSION['visit'])>0){ ?>
+                <script>
+                    $(function(){
+                        $('.loginErrorLog').removeClass('d-none');
+                        notLogin();
+                        $('.add-user').click();
+                    })
+                </script>
+            <?php }
         } ?>
         <div class="main-footer ht-70">
 			<div class="container-fluid pd-t-0-f ht-50p">
