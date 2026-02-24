@@ -84,24 +84,4 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 const DS=DIRECTORY_SEPARATOR;
-const DBNAME = 'myhomeir_tbl';
-const USERNAME = 'myhomeir_usr';
-const PASSWORD = '[J91S:6eOsXid2';
-const SITEMAIL='info@my-home.ir';
-const SITE_KEY='6LdektsiAAAAADjrrs0rfV3_MTG5LChO0dlVDzeL';
-const SECRET_KEY='6LdektsiAAAAAO4CIipL9xo2lssF3B_U1NySHBj4';
-const WEATHER_API = 'YCC2W5RH259642CZEHCF9JN4S';
-const CID="1047070246257-5urkmu3en7gl3i9d7likigr7trjt4i42.apps.googleusercontent.com";
-const CSECRET="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";
-// const ZARIN_KEY='f14eba81-eb01-4335-8f4a-73323921582d';
-const BANKUSER='ERP120000113206614';
-const BANKPASS='gF/9JphG$n';
-const BANKTERMINAL=62044467;
-const SMSUSER="u09336160295";
-const SMSPASS="Faraz@1822280019422997";
-const SUPPORT_PHONE_NUMBER='09336160295';
-define('SMSIRTEMPID','763111');
-define('SMSIRTEMPID2','904491');
-// terminal parsian
-const PARSIAN_PIN_CODE = 'V1BRjow4u5m6226Wr2Vu';
-const PARSIAN_TERMINAL = '45225123';
+
